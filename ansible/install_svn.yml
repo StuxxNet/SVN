@@ -1,5 +1,5 @@
 - name: Chamando a playbook pra instalar o Docker
   hosts: docker
   roles:
-    - docker
+    - svn
   become: yes

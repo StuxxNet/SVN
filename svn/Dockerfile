@@ -7,8 +7,8 @@ RUN apt-get update && \
 
 COPY *.conf /etc/sasl
 
-VOLUME ["/home/svn"]
+VOLUME ["/home/svn", "/home/database"]
 
 EXPOSE 3690
 
-ENTRYPOINT ["/usr/bin/svnserve","--foreground", "-d", "-r", "/home/svn/repo"]
+ENTRYPOINT ["/usr/bin/svnserve","--foreground", "-d", "-r", "/home/svn"]

@@ -1,0 +1,28 @@
+---
+- name: Checando se pasta base existe
+  command: "test -e /home/svn/{{ repositorio }}"
+  ignore_errors: yes
+  register: repo
+
+- name: Criando pasta base
+  file:
+    path: "/home/svn/{{ repositorio }}"
+    state: directory
+    mode: 0755
+  when: repo.rc != 0
+
+- name: Subindo container Docker
+  docker_container:
+    name: "{{ repositorio }}"
+    image: svn:1.6
+    volumes: 
+      - "/home/svn/{{ repositorio }}:/home/svn"
+      - /vagrant/database:/home/database
+    state: started
+    ports:
+      - "3690:3690"
+
+- name: Criando o repositorio base
+  command: "docker exec {{ repositorio }} svnadmin create /home/svn"
+  when: repo != 0
+...

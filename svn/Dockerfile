@@ -5,7 +5,7 @@ RUN apt-get update && \
     mkdir -p /etc/sasl && \
     chmod 744 /etc/sasl
 
-COPY *.conf /etc/sasl
+COPY *.conf /etc/sasl2
 
 VOLUME ["/home/svn", "/home/database"]
 

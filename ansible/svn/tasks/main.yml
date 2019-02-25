@@ -14,7 +14,7 @@
 - name: Subindo container Docker
   docker_container:
     name: "{{ repositorio }}"
-    image: svn:1.6
+    image: svn:1.7
     volumes: 
       - "/home/svn/{{ repositorio }}:/home/svn"
       - /vagrant/database:/home/database

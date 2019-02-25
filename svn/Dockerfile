@@ -1,10 +1,7 @@
-FROM ubuntu:18.04
+FROM centos:7
 
-RUN apt-get update && \
-    apt-get install subversion sasl2-bin wget -y && \
-    mkdir -p /etc/sasl && \
-    chmod 744 /etc/sasl
-
+RUN yum update -y && \
+    yum install cyrus-sasl cyrus-sasl-md5 cyrus-sasl-lib cyrus-sasl-sql cyrus-sasl-plain subversion wget -y
 COPY *.conf /etc/sasl2
 
 VOLUME ["/home/svn", "/home/database"]

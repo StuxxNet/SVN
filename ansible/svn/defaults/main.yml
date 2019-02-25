@@ -1,3 +1,5 @@
 ---
 repositorio: repo
+authz: https://github.com/StuxxNet/svn/blob/master/configs/authz
+svnserve: https://github.com/StuxxNet/svn/blob/master/configs/svnserve.conf
 ...

@@ -24,5 +24,17 @@
 
 - name: Criando o repositorio base
   command: "docker exec {{ repositorio }} svnadmin create /home/svn"
-  when: repo != 0
+  when: repo.rc != 0
+
+- name: Fazendo WGET svnserve.conf
+  get_url:
+    url: "{{ svnserve }}"
+    dest: "/home/svn/{{ repositorio }}/conf/svnserve.conf"
+    mode: 0644
+
+- name: Fazendo WGET do AuthZ
+  get_url:
+    url: "{{ authz }}"
+    dest: "/home/svn/{{ repositorio }}/conf/authz"
+    mode: 0644
 ...

@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 RUN apt-get update && \
-    apt-get install subversion sasl2-bin -y && \
+    apt-get install subversion sasl2-bin wget -y && \
     mkdir -p /etc/sasl && \
     chmod 744 /etc/sasl
 

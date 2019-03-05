@@ -1,0 +1,5 @@
+- name: Garantindo Docker
+  hosts: docker
+  roles:
+    - docker
+  become: yes

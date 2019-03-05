@@ -4,7 +4,7 @@
   ignore_errors: yes
   register: repo
 
-- name: Criando pasta base
+- name: Criando pasta root
   file:
     path: "/home/svn/{{ repositorio }}"
     state: directory
@@ -14,16 +14,16 @@
 - name: Subindo container Docker
   docker_container:
     name: "{{ repositorio }}"
-    image: svn:1.7
+    image: svn:1.8
     volumes: 
-      - "/home/svn/{{ repositorio }}:/home/svn"
+      - "/home/svn/{{ repositorio }}:/home/svn/repo"
       - /vagrant/database:/home/database
     state: started
     ports:
       - "3690:3690"
 
 - name: Criando o repositorio base
-  command: "docker exec {{ repositorio }} svnadmin create /home/svn"
+  command: "docker exec {{ repositorio }} svnadmin create /home/svn/repo"
   when: repo.rc != 0
 
 - name: Fazendo WGET svnserve.conf
@@ -31,10 +31,12 @@
     url: "{{ svnserve }}"
     dest: "/home/svn/{{ repositorio }}/conf/svnserve.conf"
     mode: 0644
+    force: yes
 
 - name: Fazendo WGET do AuthZ
   get_url:
     url: "{{ authz }}"
     dest: "/home/svn/{{ repositorio }}/conf/authz"
     mode: 0644
+    force: yes
 ...

@@ -1,12 +1,12 @@
 ---
 - name: Checando se pasta base existe
-  command: "test -e /home/svn/{{ repositorio }}"
+  command: "test -e {{ svn_root }}/{{ repositorio }}"
   ignore_errors: yes
   register: repo
 
 - name: Criando pasta root
   file:
-    path: "/home/svn/{{ repositorio }}"
+    path: "{{ svn_root }}/{{ repositorio }}"
     state: directory
     mode: 0755
   when: repo.rc != 0
@@ -14,29 +14,30 @@
 - name: Subindo container Docker
   docker_container:
     name: "{{ repositorio }}"
-    image: svn:1.8
+    image: svn:latest
     volumes: 
-      - "/home/svn/{{ repositorio }}:/home/svn/repo"
-      - /vagrant/database:/home/database
+      - "{{ svn_root }}/{{ repositorio }}:{{ svn_root }}/repo"
+      - "{{ pasta_banco }}:/home/database"
     state: started
+    restart_policy: always
     ports:
       - "3690:3690"
 
 - name: Criando o repositorio base
-  command: "docker exec {{ repositorio }} svnadmin create /home/svn/repo"
+  command: "docker exec {{ repositorio }} svnadmin create {{ svn_root }}/repo"
   when: repo.rc != 0
 
 - name: Fazendo WGET svnserve.conf
   get_url:
     url: "{{ svnserve }}"
-    dest: "/home/svn/{{ repositorio }}/conf/svnserve.conf"
+    dest: "{{ svn_root }}/{{ repositorio }}/conf/svnserve.conf"
     mode: 0644
     force: yes
 
 - name: Fazendo WGET do AuthZ
   get_url:
     url: "{{ authz }}"
-    dest: "/home/svn/{{ repositorio }}/conf/authz"
+    dest: "{{ svn_root }}/{{ repositorio }}/conf/authz"
     mode: 0644
     force: yes
 ...

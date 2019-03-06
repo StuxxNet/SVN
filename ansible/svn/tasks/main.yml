@@ -14,9 +14,9 @@
 - name: Subindo container Docker
   docker_container:
     name: "{{ repositorio }}"
-    image: svn:latest
+    image: svn:1.8
     volumes: 
-      - "{{ svn_root }}/{{ repositorio }}:{{ svn_root }}/repo"
+      - "{{ svn_root }}/{{ repositorio }}:/home/svn/repo"
       - "{{ pasta_banco }}:/home/database"
     state: started
     restart_policy: always

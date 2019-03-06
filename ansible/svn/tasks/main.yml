@@ -19,7 +19,6 @@
       - "{{ svn_root }}/{{ repositorio }}:/home/svn/repo"
       - "{{ pasta_banco }}:/home/database"
     state: started
-    restart_policy: always
     ports:
       - "3690:3690"
 

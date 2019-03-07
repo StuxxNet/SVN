@@ -1,0 +1,7 @@
+---
+repositorio: repo
+authz: https://raw.githubusercontent.com/StuxxNet/svn/master/configs/authz
+svnserve: https://raw.githubusercontent.com/StuxxNet/svn/master/configs/svnserve.conf
+pasta_banco: /vagrant/database
+svn_root: /home/svn
+...

@@ -1,5 +1,6 @@
 - name: Garantindo a instalação do Jenkins
   hosts: jenkins
   roles:
+    - svn_client
     - jenkins
   become: yes

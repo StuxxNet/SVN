@@ -1,0 +1,7 @@
+---
+- name: Garantindo SVN Client
+  apt:
+    name: subversion
+    state: present
+    update_cache: yes
+...

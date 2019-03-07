@@ -1,0 +1,24 @@
+---
+- name: Adicionando chave GPG
+  apt_key:
+    url: https://pkg.jenkins.io/debian/jenkins.io.key
+    state: present
+
+- name: Adicionando o repositorio do Jenkins
+  apt_repository:
+    repo: deb https://pkg.jenkins.io/debian binary/
+    state: present
+
+- name: Garantindo o Jenkins
+  apt:
+    name: jenkins
+    state: present
+    update_cache: yes
+
+- name: Copiando o arquivo de configuração do Jenkins
+  template:
+    src: templates/jenkins.j2
+    dest: /etc/default/jenkins
+  notify:
+    - restart jenkins
+...

@@ -1,0 +1,7 @@
+---
+- name: Garantindo a instalacao do Tomcat
+  apt:
+    name: [apt-transport-https, maven, openjdk-8-jdk, openjdk-8-jre-headless, tomcat7, git]
+    state: present
+    update_cache: yes
+...

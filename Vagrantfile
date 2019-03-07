@@ -16,4 +16,13 @@ Vagrant.configure("2") do |config|
             docker_provider.memory = 1024
         end
     end
+
+    config.vm.define :jenkins do |jenkins|
+        jenkins.vm.box = "ubuntu/xenial64"
+        jenkins.vm.network "private_network", ip: "192.168.1.30"
+        jenkins.vm.provision "shell", path: "provision/add_ssh_key.sh"
+        jenkins.vm.provider "virtualbox" do |jenkins_provider|
+            jenkins_provider.memory = 1024
+        end
+    end
 end

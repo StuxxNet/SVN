@@ -1,4 +1,4 @@
-RESULT=$(dpkg -l python)
+RESULT=$(python -v)
 if [[ ${?} -ne 0 ]]; then
     echo "Updating repositories"
     INSTALL=$(sudo apt-get update 2>&1)

@@ -1,0 +1,5 @@
+- name: Garantindo a instalação do Jenkins
+  hosts: jenkins
+  roles:
+    - jenkins
+  become: yes

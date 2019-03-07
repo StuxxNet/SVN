@@ -32,6 +32,13 @@ if [[ ${?} -eq 1 ]]; then
                     exit 5
                 else
                     echo "Changed the ownership of the .ssh folder"
+                    INSTALL=$(sudo chmod 600 /vagrant/provision/keys/id_rsa)
+                    if [[ {$?} -ne 0 ]]; then
+                        echo "Failed to set SSH key mode: ${INSTALL}" 1>&2
+                        exit 6
+                    else
+                        echo "SSH key permission successfully set"
+                    fi
                 fi
             fi
         fi

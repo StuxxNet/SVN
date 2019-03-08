@@ -5,7 +5,7 @@ RUN yum update -y && \
     
 COPY *.conf /etc/sasl2
 
-VOLUME ["/home/svn", "/home/database"]
+VOLUME ["/home/svn", "/home/database", "/home/backup"]
 
 EXPOSE 3690
 

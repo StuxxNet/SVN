@@ -18,6 +18,7 @@
     volumes: 
       - "{{ svn_root }}/{{ repositorio }}:/home/svn/repo"
       - "{{ pasta_banco }}:/home/database"
+      - "{{ pasta_backup }}:/home/backup"
     state: started
     ports:
       - "3690:3690"

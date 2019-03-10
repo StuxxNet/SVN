@@ -1,0 +1,8 @@
+---
+- name: Instalando o SonarQUBE
+  hosts: sonar
+  roles:
+    - postgresql
+    - sonarqube
+  become: yes
+...

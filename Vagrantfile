@@ -25,4 +25,13 @@ Vagrant.configure("2") do |config|
             jenkins_provider.memory = 2048
         end
     end
+
+    config.vm.define :sonar do |sonar|
+        sonar.vm.box = "ubuntu/xenial64"
+        sonar.vm.network "private_network", ip: "192.168.1.40"
+        sonar.vm.provision "shell", path: "provision/add_ssh_key.sh"
+        sonar.vm.provider "virtualbox" do |sonar_provider|
+            sonar_provider.memory = 512
+        end
+    end
 end

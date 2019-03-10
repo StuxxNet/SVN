@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
         jenkins.vm.network "private_network", ip: "192.168.1.30"
         jenkins.vm.provision "shell", path: "provision/add_ssh_key.sh"
         jenkins.vm.provider "virtualbox" do |jenkins_provider|
-            jenkins_provider.memory = 1024
+            jenkins_provider.memory = 2048
         end
     end
 end

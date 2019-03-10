@@ -1,3 +1,4 @@
+phantomjs
 .vagrant
 *.log
 *.retry

@@ -4,7 +4,7 @@ Vagrant.configure("2") do |config|
         ansible.vm.network "private_network", ip: "192.168.1.10"
         ansible.vm.provision "shell", path: "provision/ansible.sh"
         ansible.vm.provider "virtualbox" do |ansible_provider|
-            ansible_provider.memory = 1024
+            ansible_provider.memory = 512
         end
     end
 
@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
         jenkins.vm.network "private_network", ip: "192.168.1.30"
         jenkins.vm.provision "shell", path: "provision/add_ssh_key.sh"
         jenkins.vm.provider "virtualbox" do |jenkins_provider|
-            jenkins_provider.memory = 2048
+            jenkins_provider.memory = 1024
         end
     end
 
@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
         sonar.vm.network "private_network", ip: "192.168.1.40"
         sonar.vm.provision "shell", path: "provision/add_ssh_key.sh"
         sonar.vm.provider "virtualbox" do |sonar_provider|
-            sonar_provider.memory = 512
+            sonar_provider.memory = 2048
         end
     end
 end

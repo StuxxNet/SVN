@@ -1,0 +1,4 @@
+sonar_user: sonar
+sonar_password: 123456
+database_ip: 127.0.0.1
+sonar_ip: 192.168.1.40

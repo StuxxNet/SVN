@@ -1,0 +1,72 @@
+---
+- name: Criando user do Sonar
+  postgresql_user:
+    name: sonar
+    password: 123456
+    state: present
+    encrypted: yes
+  become_user: postgres
+
+- name: Criando banco do Sonar
+  postgresql_db:
+    name: sonar
+    owner: sonar
+    encoding: UTF-8
+  become_user: postgres
+
+- name: Criando usuario do SonarQUBE
+  user:
+    name: sonar
+    state: present
+
+- name: Garantindo a instalação dos pre-reqs
+  apt:
+    name: [unzip, apt-transport-https, openjdk-8-jdk, openjdk-8-jre-headless]
+    state: present
+    update_cache: yes
+
+- name: Verifica se o SonarQUBE já foi baixado
+  command: test -e /opt/sonarqube-6.7.6.zip
+  ignore_errors: yes
+  register: sonar
+
+- name: Baixando o SonarQUBE
+  get_url:
+    url: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-6.7.6.zip
+    dest: /opt
+    owner: sonar
+    group: sonar
+  when: sonar.rc != 0
+
+- name: Descompactando SonarQUBE
+  unarchive:
+    src: /opt/sonarqube-6.7.6.zip
+    dest: /opt
+    owner: sonar
+    group: sonar
+    remote_src: yes
+
+- name: Copiando o .sh de start do SonarQUBE
+  template:
+    src: templates/sonar.sh.j2
+    dest: /opt/sonarqube-6.7.6/bin/linux-x86-64/sonar.sh
+    owner: sonar
+    group: sonar
+    mode: 0755
+
+- name: Copiando o template de properties do SonarQUBE
+  template:
+    src: templates/sonar.properties.j2
+    dest: /opt/sonarqube-6.7.6/conf/sonar.properties
+    owner: sonar
+    group: sonar
+    mode: 0644    
+
+- name: Copiando file pra gerenciar SonarQUBE pelo systemctl
+  copy:
+    src: files/sonar.service
+    dest: /etc/systemd/system/sonar.service
+    owner: root
+    group: root
+    mode: 0644    
+...
